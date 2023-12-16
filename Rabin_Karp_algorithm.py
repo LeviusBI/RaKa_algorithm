@@ -9,11 +9,13 @@ def Rabin_Karp(pattern, text, q, d):
     n = len(text)
     if m > n:
         raise PatternLength("Pattern P is longer than text T. Insert shorter pattern")
+    p = 0
     t = 0
     h = 1
     i = 0
     j = 0
-
+    end = 0
+    
     for i in range(m-1):
         h = (h*d) % q
 
@@ -31,14 +33,16 @@ def Rabin_Karp(pattern, text, q, d):
 
             j += 1
             if j == m:
-                print("Pattern is found at position: " + str(i+1))
+                print(str(i))
+                end+=1
 
         if i < n-m:
             t = (d*(t-ord(text[i])*h) + ord(text[i+m])) % q
 
             if t < 0:
                 t = t+q
-
+    if end==0:
+        print("No matches")
 
 text, pattern = sys.argv[1], sys.argv[2]
 
