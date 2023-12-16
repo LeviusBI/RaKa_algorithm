@@ -1,12 +1,14 @@
 # Rabin-Karp algorithm in python
 
-
+import sys
+from Bio import SeqIO
 
 
 def Rabin_Karp(pattern, text, q, d):
     m = len(pattern)
     n = len(text)
-    p = 0
+    if m > n:
+        raise PatternLength("Pattern P is longer than text T. Insert shorter pattern")
     t = 0
     h = 1
     i = 0
@@ -38,10 +40,14 @@ def Rabin_Karp(pattern, text, q, d):
                 t = t+q
 
 
+text, pattern = sys.argv[1], sys.argv[2]
+
+fasta_text = SeqIO.parse(open(text), 'fasta')
+fasta_pattern = SeqIO.parse(open(text), 'fasta')
+pattern = str(fasta_pattern.seq)
+sequence = str(fasta_text.seq)
 
 
 
-
-text = "ABCCDDAEFG"
 pattern = "CDD"
-Rabin_Karp(pattern, text, q=13, d=10)
+Rabin_Karp(pattern, sequence, q=13, d=10)
